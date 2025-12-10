@@ -161,3 +161,108 @@ function buildTags(tags) {
   if (tags.outdoor_seating === "yes") relevantTags.push("Outdoor Seating");
   return relevantTags;
 }
+
+/**
+ * Gets the user's current location using the browser's Geolocation API
+ * @returns {Promise<{lat: number, lon: number}>}
+ */
+export function getUserLocation() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("Geolocation is not supported by your browser"));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        });
+      },
+      (error) => {
+        let errorMessage = "Unable to retrieve your location.";
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage =
+              "Location access denied. Please enable location permissions and try again.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage = "Location information is unavailable.";
+            break;
+          case error.TIMEOUT:
+            errorMessage = "Location request timed out. Please try again.";
+            break;
+        }
+        reject(new Error(errorMessage));
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      }
+    );
+  });
+}
+
+/**
+ * Reverse geocodes coordinates to get a location name
+ * @param {number} lat - Latitude
+ * @param {number} lon - Longitude
+ * @returns {Promise<{lat: number, lon: number, displayName: string}>}
+ */
+export async function reverseGeocode(lat, lon) {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`,
+      {
+        headers: {
+          "User-Agent": "BrewMap/1.0",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Reverse geocoding failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data || !data.address) {
+      throw new Error("Unable to determine location name");
+    }
+
+    // Build a readable location name
+    const address = data.address;
+    const locationParts = [];
+    if (address.city) {
+      locationParts.push(address.city);
+    } else if (address.town) {
+      locationParts.push(address.town);
+    } else if (address.village) {
+      locationParts.push(address.village);
+    }
+    if (address.state) {
+      locationParts.push(address.state);
+    }
+
+    const displayName =
+      locationParts.length > 0
+        ? locationParts.join(", ")
+        : data.display_name || "Your Location";
+
+    return {
+      lat,
+      lon,
+      displayName,
+    };
+  } catch (error) {
+    console.error("Reverse geocoding error:", error);
+    // Return coordinates even if reverse geocoding fails
+    return {
+      lat,
+      lon,
+      displayName: "Your Location",
+    };
+  }
+}
