@@ -1,3 +1,4 @@
+import coffeeLogo from "../../images/coffee-logo.png";
 import "./CoffeeShopCard.css";
 
 function CoffeeShopCard({ coffeeShop, onClick }) {
@@ -19,6 +20,11 @@ function CoffeeShopCard({ coffeeShop, onClick }) {
     >
       <div className="coffee-shop-card__content">
         <h3 className="coffee-shop-card__name">
+          <img
+            src={coffeeLogo}
+            alt="Coffee shop"
+            className="coffee-shop-card__logo"
+          />
           {name || "Unnamed Coffee Shop"}
         </h3>
         {address && <p className="coffee-shop-card__address">{address}</p>}

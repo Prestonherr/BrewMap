@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import coffeeLogo from "../../images/coffee-logo.png";
 import "./CoffeeShopModal.css";
 
 function CoffeeShopModal({ isOpen, onClose, coffeeShop }) {
@@ -41,6 +42,11 @@ function CoffeeShopModal({ isOpen, onClose, coffeeShop }) {
         </button>
         <div className="coffee-shop-modal__body">
           <h2 className="coffee-shop-modal__title">
+            <img
+              src={coffeeLogo}
+              alt="Coffee shop"
+              className="coffee-shop-modal__logo"
+            />
             {name || "Unnamed Coffee Shop"}
           </h2>
           {address && (

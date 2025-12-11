@@ -5,7 +5,7 @@ function Preloader() {
     <div className="preloader">
       <div className="preloader__container">
         <div className="circle-preloader"></div>
-        <p className="preloader__text">Searching for coffee shops...</p>
+        <p className="preloader__text">Brewing...</p>
       </div>
     </div>
   );
