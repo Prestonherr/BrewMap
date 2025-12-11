@@ -115,7 +115,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/BrewMap">
       <div className="app">
         <Header />
         <Routes>
