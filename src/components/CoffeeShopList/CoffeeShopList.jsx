@@ -3,16 +3,14 @@ import CoffeeShopCard from "../CoffeeShopCard/CoffeeShopCard";
 import Pagination from "../Pagination/Pagination";
 import Preloader from "../Preloader/Preloader";
 import CoffeeShopModal from "../CoffeeShopModal/CoffeeShopModal";
+import { RESULTS_PER_PAGE } from "../../config/constants.js";
 import "./CoffeeShopList.css";
-
-const RESULTS_PER_PAGE = 10;
 
 function CoffeeShopList({ coffeeShops, isLoading, error }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCoffeeShop, setSelectedCoffeeShop] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Reset to page 1 when coffeeShops change
   useEffect(() => {
     setCurrentPage(1);
   }, [coffeeShops]);
@@ -43,7 +41,6 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
     );
   }
 
-  // Calculate pagination
   const totalPages = Math.ceil(coffeeShops.length / RESULTS_PER_PAGE);
   const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
   const endIndex = startIndex + RESULTS_PER_PAGE;

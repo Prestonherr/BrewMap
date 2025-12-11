@@ -90,7 +90,6 @@
   width: 36px;
   height: 36px;
   object-fit: contain;
-  opacity: 0.7;
   flex-shrink: 0;
 }
 
@@ -148,7 +147,6 @@
   text-decoration: underline;
 }
 
-/* Tablet styles (481px - 1024px) */
 @media (max-width: 1024px) {
   .coffee-shop-modal__content {
     max-width: 90%;
@@ -165,7 +163,6 @@
   }
 }
 
-/* iPhone/Mobile styles (up to 480px) */
 @media (max-width: 480px) {
   .coffee-shop-modal {
     padding: 0.5rem;

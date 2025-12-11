@@ -1,3 +1,9 @@
+import {
+  GEOLOCATION_TIMEOUT,
+  GEOLOCATION_MAXIMUM_AGE,
+  GEOLOCATION_ENABLE_HIGH_ACCURACY,
+} from "../config/constants.js";
+
 export function getUserLocation() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -29,9 +35,9 @@ export function getUserLocation() {
         reject(new Error(errorMessage));
       },
       {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0,
+        enableHighAccuracy: GEOLOCATION_ENABLE_HIGH_ACCURACY,
+        timeout: GEOLOCATION_TIMEOUT,
+        maximumAge: GEOLOCATION_MAXIMUM_AGE,
       }
     );
   });

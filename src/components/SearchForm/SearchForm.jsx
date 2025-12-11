@@ -1,9 +1,13 @@
 import { useState } from "react";
+import {
+  SEARCH_RADIUS_OPTIONS,
+  DEFAULT_SEARCH_RADIUS,
+} from "../../config/constants.js";
 import "./SearchForm.css";
 
 function SearchForm({ onSearch, onUseLocation }) {
   const [city, setCity] = useState("");
-  const [radius, setRadius] = useState(5);
+  const [radius, setRadius] = useState(DEFAULT_SEARCH_RADIUS);
   const [isGettingLocation, setIsGettingLocation] = useState(false);
 
   const handleSubmit = (e) => {
@@ -18,7 +22,6 @@ function SearchForm({ onSearch, onUseLocation }) {
     try {
       await onUseLocation(radius);
     } catch (error) {
-      // Error handling is done in parent component
     } finally {
       setIsGettingLocation(false);
     }
@@ -113,12 +116,11 @@ function SearchForm({ onSearch, onUseLocation }) {
               value={radius}
               onChange={(e) => setRadius(Number(e.target.value))}
             >
-              <option value={1}>1 mile</option>
-              <option value={3}>3 miles</option>
-              <option value={5}>5 miles</option>
-              <option value={10}>10 miles</option>
-              <option value={15}>15 miles</option>
-              <option value={25}>25 miles</option>
+              {SEARCH_RADIUS_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option} {option === 1 ? "mile" : "miles"}
+                </option>
+              ))}
             </select>
           </div>
           <button

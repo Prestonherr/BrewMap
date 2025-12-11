@@ -43,7 +43,6 @@
   width: 28px;
   height: 28px;
   object-fit: contain;
-  opacity: 0.7;
   flex-shrink: 0;
 }
 
@@ -78,7 +77,6 @@
   font-weight: 500;
 }
 
-/* Tablet styles (481px - 1024px) */
 @media (max-width: 1024px) {
   .coffee-shop-card {
     padding: 1.25rem;
@@ -94,7 +92,6 @@
   }
 }
 
-/* iPhone/Mobile styles (up to 480px) */
 @media (max-width: 480px) {
   .coffee-shop-card {
     padding: 1rem;

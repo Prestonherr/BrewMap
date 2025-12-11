@@ -1,19 +1,31 @@
+import { METERS_PER_MILE, EARTH_RADIUS_IN_MILES } from "../config/constants.js";
+
 export function milesToMeters(miles) {
-  return miles * 1609.34;
+  return miles * METERS_PER_MILE;
 }
 
-export function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 3959; // Earth's radius in miles
-  const dLat = ((lat2 - lat1) * Math.PI) / 180;
-  const dLon = ((lon2 - lon1) * Math.PI) / 180;
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
+export function calculateDistance(
+  latitude1,
+  longitude1,
+  latitude2,
+  longitude2
+) {
+  const earthRadiusInMiles = EARTH_RADIUS_IN_MILES;
+  const latitudeDifference = ((latitude2 - latitude1) * Math.PI) / 180;
+  const longitudeDifference = ((longitude2 - longitude1) * Math.PI) / 180;
+  const haversineIntermediateValue =
+    Math.sin(latitudeDifference / 2) * Math.sin(latitudeDifference / 2) +
+    Math.cos((latitude1 * Math.PI) / 180) *
+      Math.cos((latitude2 * Math.PI) / 180) *
+      Math.sin(longitudeDifference / 2) *
+      Math.sin(longitudeDifference / 2);
+  const angularDistance =
+    2 *
+    Math.atan2(
+      Math.sqrt(haversineIntermediateValue),
+      Math.sqrt(1 - haversineIntermediateValue)
+    );
+  return earthRadiusInMiles * angularDistance;
 }
 
 export function buildAddress(tags) {
