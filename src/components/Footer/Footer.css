@@ -15,7 +15,6 @@
   margin-right: 40px;
 }
 
-/* Tablet styles (481px - 1024px) */
 @media (max-width: 1024px) {
   .footer {
     padding: 70px 0 25px;
@@ -28,7 +27,6 @@
   }
 }
 
-/* iPhone/Mobile styles (up to 480px) */
 @media (max-width: 480px) {
   .footer {
     flex-direction: column;

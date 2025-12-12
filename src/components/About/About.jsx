@@ -28,7 +28,7 @@ function About() {
             <h2 className="about__section-title">Future Features</h2>
             <p className="about__section-text">
               Coming soon: Save your favorite coffee shops, leave reviews, and
-              create personalized coffee shop lists. We're building a community
+              create personalized coffee shop lists. We are building a community
               of coffee enthusiasts!
             </p>
           </section>

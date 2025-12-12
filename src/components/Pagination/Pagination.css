@@ -78,14 +78,12 @@
   font-weight: 600;
 }
 
-/* Tablet styles (481px - 1024px) */
 @media (max-width: 1024px) {
   .pagination {
     padding: 1.5rem 1.5rem;
   }
 }
 
-/* iPhone/Mobile styles (up to 480px) */
 @media (max-width: 480px) {
   .pagination {
     padding: 1.5rem 1rem;

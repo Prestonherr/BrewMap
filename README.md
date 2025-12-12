@@ -1,4 +1,4 @@
-# BrewMap ☕
+# BrewMap ☕️🗺️
 
 BrewMap is a coffee shop finder application designed to help users explore local coffee culture. The app allows users to search for coffee shops by city name and displays results within a customizable radius (1-25 miles). Built as a frontend-focused project with architecture designed for future full-stack expansion, including user authentication, saved favorites, and reviews.
 
@@ -22,8 +22,6 @@ Watch the project description video: [BrewMap Demo Video](https://www.loom.com/s
 
 ## 🛠️ Technologies & Languages
 
-### Core Technologies
-
 - **React 18.3** - Modern UI library for building interactive user interfaces
 - **Vite 5.3** - Next-generation frontend build tool for fast development
 - **React Router DOM 7.10** - Client-side routing for single-page applications
@@ -46,14 +44,10 @@ BrewMap uses two free, open-source APIs from OpenStreetMap:
 
 1. **Nominatim API** (Geocoding)
    - Converts city names to latitude/longitude coordinates
-   - No API key required
-   - Rate limit: 1 request per second (recommended)
 
 2. **Overpass API** (Data Query)
    - Queries OpenStreetMap database for coffee shops and cafes
-   - Searches for nodes and ways tagged with `shop=coffee` or `amenity=cafe`
-   - No API key required
-   - Public instance: `https://overpass-api.de/api/interpreter`
+   - Searches for nodes and specific tags
 
 ## 🔮 Future Enhancements
 
