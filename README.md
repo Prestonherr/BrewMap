@@ -4,7 +4,7 @@ BrewMap is a coffee shop finder application designed to help users explore local
 
 ## 🌐 Deployment
 
-Try the application: [BrewMap](https://prestonherr.github.io/BrewMap/)
+Try the application: [BrewMap](https://prestonherr.github.io/brewmap-frontend/)
 
 ## 📹 Project Demo
 
