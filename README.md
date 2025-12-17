@@ -1,23 +1,25 @@
 # BrewMap ☕️🗺️
 
-BrewMap is a coffee shop finder application designed to help users explore local coffee culture. The app allows users to search for coffee shops by city name and displays results within a customizable radius (1-25 miles). Built as a frontend-focused project with architecture designed for future full-stack expansion, including user authentication, saved favorites, and reviews.
+BrewMap is a coffee shop finder application that helps users explore local coffee culture. It now includes a minimal backend so users can register, log in, and persistently save favorite coffee shops. The frontend continues to use OpenStreetMap services for discovery while the backend provides user accounts and saved-shop storage.
 
 ## 🌐 Deployment
 
 Try the application: [BrewMap](https://prestonherr.github.io/brewmap-frontend/)
 
-## 📹 Project Demo
+## Backend
 
-Watch the project description video: [BrewMap Demo Video](https://www.loom.com/share/46c58a533907461c92464b64c9a716fc)
+Link to backend: [Backend Repo](https://github.com/Prestonherr/brewmap-backend)
 
 ## ✨ Features
 
 - **City-based Search**: Enter any city name to find coffee shops
 - **Customizable Radius**: Search within 1 to 25 miles
-- **Real-time Results**: Fetches live data from OpenStreetMap
+- **Real-time Results**: Fetches live data from OpenStreetMap (Nominatim + Overpass)
 - **Distance Display**: Shows distance from city center for each coffee shop
-- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
-- **Multi-page Navigation**: Home page with search functionality and About page
+- **User Accounts (Backend)**: Register and log in to a persistent account
+- **Saved Favorites (Backend)**: Save coffee shops to your account so they persist across sessions
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
+- **Multi-page Navigation**: Home, About, and Profile pages
 - **Error Handling**: User-friendly error messages and loading states
 
 ## 🛠️ Technologies & Languages
@@ -38,28 +40,21 @@ Watch the project description video: [BrewMap Demo Video](https://www.loom.com/s
 - **Prettier 3.2** - Code formatting for consistent style
 - **React Hooks** - Modern React state and lifecycle management
 
-### APIs
+### APIs & Backend
 
-BrewMap uses two free, open-source APIs from OpenStreetMap:
+BrewMap uses OpenStreetMap services for discovery and a small custom backend for user data:
 
-1. **Nominatim API** (Geocoding)
-   - Converts city names to latitude/longitude coordinates
-
-2. **Overpass API** (Data Query)
-   - Queries OpenStreetMap database for coffee shops and cafes
-   - Searches for nodes and specific tags
+- **Nominatim API** (Geocoding): Converts city names to latitude/longitude coordinates
+- **Overpass API** (Data Query): Queries OpenStreetMap for coffee shops and cafes
+- **Backend API (local / custom REST)**: Provides endpoints for user registration, authentication, and saving/deleting coffee shops. The backend persists saved shops per user in a MongoDB database.
 
 ## 🔮 Future Enhancements
 
-This project is architected for full-stack expansion. Planned features include:
+Planned features include:
 
-- **User Authentication**: Registration and login functionality
-- **Saved Favorites**: Save and manage favorite coffee shops
-- **User Reviews**: Rate and review coffee shops
-- **Personal Lists**: Create custom coffee shop collections
-- **Map Integration**: Visual map display of coffee shop locations
-- **Backend API**: Custom REST API for user data and preferences
-- **Database Integration**: Store user data and saved locations
+- Displaying reviews and photos on coffeeshop cards
+- Being able to rate coffeeshops
+- A map displaying search results
 
 ## 👤 Author
 
