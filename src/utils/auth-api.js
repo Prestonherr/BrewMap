@@ -9,13 +9,16 @@ export const register = (email, name, password) => {
     },
     body: JSON.stringify({ email, name, password }),
   })
-    .then((response) => {
+    .then(async (response) => {
+      const data = await response.json();
       if (!response.ok) {
-        return response.json().then((err) => {
-          throw new Error(err.error?.message || "Registration failed");
-        });
+        const errorMessage =
+          data?.error?.message ||
+          data?.message ||
+          `Registration failed (${response.status})`;
+        throw new Error(errorMessage);
       }
-      return response.json();
+      return data;
     })
     .then((data) => {
       // Store token in localStorage
@@ -24,6 +27,15 @@ export const register = (email, name, password) => {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
       return data;
+    })
+    .catch((error) => {
+      // Handle network errors
+      if (error.message.includes("Failed to fetch")) {
+        throw new Error(
+          "Unable to connect to server. Please make sure the backend is running."
+        );
+      }
+      throw error;
     });
 };
 
@@ -36,13 +48,16 @@ export const login = (email, password) => {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => {
+    .then(async (response) => {
+      const data = await response.json();
       if (!response.ok) {
-        return response.json().then((err) => {
-          throw new Error(err.error?.message || "Login failed");
-        });
+        const errorMessage =
+          data?.error?.message ||
+          data?.message ||
+          `Login failed (${response.status})`;
+        throw new Error(errorMessage);
       }
-      return response.json();
+      return data;
     })
     .then((data) => {
       // Store token in localStorage
@@ -51,6 +66,15 @@ export const login = (email, password) => {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
       return data;
+    })
+    .catch((error) => {
+      // Handle network errors
+      if (error.message.includes("Failed to fetch")) {
+        throw new Error(
+          "Unable to connect to server. Please make sure the backend is running."
+        );
+      }
+      throw error;
     });
 };
 

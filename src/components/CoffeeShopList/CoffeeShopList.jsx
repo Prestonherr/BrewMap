@@ -60,23 +60,16 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
     }
   };
 
-  const handleDelete = () => {
-    // Remove from saved list and refresh
-    const token = localStorage.getItem("token");
-    if (token) {
-      getSavedCoffeeShops()
-        .then((saved) => {
-          setSavedCoffeeShops(saved || []);
-          // If the deleted shop was the selected one, update it
-          if (selectedCoffeeShop?._id) {
-            const updatedShop = { ...selectedCoffeeShop };
-            delete updatedShop._id;
-            setSelectedCoffeeShop(updatedShop);
-          }
-        })
-        .catch((err) => {
-          console.error("Error loading saved coffee shops:", err);
-        });
+  const handleDelete = (deletedCoffeeShopId) => {
+    // Remove from saved list immediately
+    setSavedCoffeeShops((prev) =>
+      prev.filter((shop) => shop._id !== deletedCoffeeShopId)
+    );
+    // If the deleted shop was the selected one, update it
+    if (selectedCoffeeShop?._id === deletedCoffeeShopId) {
+      const updatedShop = { ...selectedCoffeeShop };
+      delete updatedShop._id;
+      setSelectedCoffeeShop(updatedShop);
     }
   };
 
@@ -153,7 +146,10 @@ function CoffeeShopList({ coffeeShops, isLoading, error }) {
         coffeeShop={selectedCoffeeShop}
         isSaved={selectedCoffeeShop ? checkIfSaved(selectedCoffeeShop) : false}
         onSave={handleSave}
-        onDelete={handleDelete}
+        onDelete={(deletedCoffeeShopId) => {
+          handleDelete(deletedCoffeeShopId);
+        }}
+        allowDelete={false}
       />
     </>
   );

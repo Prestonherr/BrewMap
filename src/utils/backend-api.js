@@ -55,11 +55,18 @@ export const getSavedCoffeeShops = () => {
 
 // Delete a saved coffee shop
 export const deleteCoffeeShop = (coffeeShopId) => {
-  // Ensure ID is a string
-  const id = String(coffeeShopId).trim();
-  if (!id) {
+  // Ensure ID is a string and handle MongoDB ObjectId format
+  let id = String(coffeeShopId).trim();
+
+  // Remove any ObjectId wrapper if present
+  if (id.startsWith('"') && id.endsWith('"')) {
+    id = id.slice(1, -1);
+  }
+
+  if (!id || id.length === 0) {
     return Promise.reject(new Error("Coffee shop ID is required"));
   }
+
   return makeRequest(`/coffee-shops/${id}`, {
     method: "DELETE",
   });

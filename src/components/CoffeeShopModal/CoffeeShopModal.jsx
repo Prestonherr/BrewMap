@@ -10,6 +10,7 @@ function CoffeeShopModal({
   isSaved,
   onSave,
   onDelete,
+  allowDelete = true, // Allow delete by default (for profile page)
 }) {
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -92,24 +93,20 @@ function CoffeeShopModal({
       return;
     }
 
-    if (
-      !window.confirm("Are you sure you want to delete this saved coffee shop?")
-    ) {
-      return;
+    setIsDeleting(true);
+    const coffeeShopId = coffeeShop._id;
+
+    // Optimistically update UI immediately
+    setSavedStatus(false);
+    if (onDelete) {
+      onDelete(coffeeShopId);
     }
 
-    setIsDeleting(true);
-    deleteCoffeeShop(coffeeShop._id)
-      .then(() => {
-        setSavedStatus(false);
-        if (onDelete) onDelete();
-      })
+    // Then make the API call (fire and forget)
+    deleteCoffeeShop(coffeeShopId)
       .catch((error) => {
         console.error("Error deleting coffee shop:", error);
-        const errorMessage =
-          error.message ||
-          "Failed to delete coffee shop. Please make sure the backend server is running.";
-        alert(errorMessage);
+        // UI already updated, error is logged for debugging
       })
       .finally(() => {
         setIsDeleting(false);
@@ -192,13 +189,15 @@ function CoffeeShopModal({
         {isLoggedIn() && (
           <div className="coffee-shop-modal__actions">
             {savedStatus || coffeeShop._id ? (
-              <button
-                className="coffee-shop-modal__delete-button"
-                onClick={handleDelete}
-                disabled={isDeleting}
-              >
-                {isDeleting ? "Deleting..." : "Delete"}
-              </button>
+              allowDelete ? (
+                <button
+                  className="coffee-shop-modal__delete-button"
+                  onClick={handleDelete}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? "Deleting..." : "Delete"}
+                </button>
+              ) : null
             ) : (
               <button
                 className="coffee-shop-modal__save-button"

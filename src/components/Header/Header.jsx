@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import coffeeLogo from "../../images/coffee-logo.png";
-import AuthModal from "../AuthModal/AuthModal";
+import LoginModal from "../LoginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 import { isAuthenticated, getCurrentUser, logout } from "../../utils/auth-api";
 import "./Header.css";
 
@@ -77,16 +78,14 @@ function Header() {
           </nav>
         </div>
       </header>
-      <AuthModal
+      <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
-        mode="login"
         onAuthSuccess={handleAuthSuccess}
       />
-      <AuthModal
+      <RegisterModal
         isOpen={isRegisterModalOpen}
         onClose={() => setIsRegisterModalOpen(false)}
-        mode="register"
         onAuthSuccess={handleAuthSuccess}
       />
     </>

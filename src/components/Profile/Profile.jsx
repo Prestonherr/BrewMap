@@ -48,7 +48,6 @@ function Profile() {
   }, [navigate]);
 
   useEffect(() => {
-    // Refresh user data when component mounts or when user changes
     const currentUser = getCurrentUser();
     if (currentUser) {
       setUser(currentUser);
@@ -57,20 +56,16 @@ function Profile() {
   }, []);
 
   const handleDelete = (coffeeShopId) => {
-    deleteCoffeeShop(coffeeShopId)
-      .then(() => {
-        setSavedCoffeeShops((prev) =>
-          prev.filter((shop) => shop._id !== coffeeShopId)
-        );
-      })
-      .catch((err) => {
-        console.error("Error deleting coffee shop:", err);
-        alert(err.message || "Failed to delete coffee shop");
-      });
+    setSavedCoffeeShops((prev) =>
+      prev.filter((shop) => shop._id !== coffeeShopId)
+    );
+
+    deleteCoffeeShop(coffeeShopId).catch((err) => {
+      console.error("Error deleting coffee shop:", err);
+    });
   };
 
   const handleSave = () => {
-    // Refresh the list after saving
     getSavedCoffeeShops()
       .then((shops) => {
         setSavedCoffeeShops(shops || []);
@@ -107,7 +102,6 @@ function Profile() {
       .then((data) => {
         setUser(data.user);
         setIsEditing(false);
-        // Trigger a page reload to update header
         window.location.reload();
       })
       .catch((err) => {
@@ -236,9 +230,9 @@ function Profile() {
         coffeeShop={selectedCoffeeShop}
         isSaved={true}
         onSave={handleSave}
-        onDelete={() => {
-          if (selectedCoffeeShop?._id) {
-            handleDelete(selectedCoffeeShop._id);
+        onDelete={(deletedCoffeeShopId) => {
+          if (deletedCoffeeShopId) {
+            handleDelete(deletedCoffeeShopId);
             setIsModalOpen(false);
             setSelectedCoffeeShop(null);
           }
