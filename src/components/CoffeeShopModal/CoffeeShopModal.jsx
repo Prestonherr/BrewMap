@@ -56,8 +56,7 @@ function CoffeeShopModal({
     }
 
     setIsSaving(true);
-    // Use originalTags if available (object), otherwise use empty object
-    // tags is an array for display, but backend needs an object
+
     const tagsObject = originalTags || {};
 
     const coffeeShopData = {
@@ -72,8 +71,11 @@ function CoffeeShopModal({
 
     saveCoffeeShop(coffeeShopData)
       .then(() => {
-        setSavedStatus(true);
-        if (onSave) onSave();
+        setTimeout(() => {
+          setSavedStatus(true);
+          if (onSave) onSave();
+          setIsSaving(false);
+        }, 1000);
       })
       .catch((error) => {
         console.error("Error saving coffee shop:", error);
@@ -81,8 +83,6 @@ function CoffeeShopModal({
           error.message ||
           "Failed to save coffee shop. Please make sure the backend server is running.";
         alert(errorMessage);
-      })
-      .finally(() => {
         setIsSaving(false);
       });
   };

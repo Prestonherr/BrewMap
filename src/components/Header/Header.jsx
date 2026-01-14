@@ -26,6 +26,7 @@ function Header() {
     logout();
     setLoggedIn(false);
     setUser(null);
+    window.location.reload();
   };
 
   return (
